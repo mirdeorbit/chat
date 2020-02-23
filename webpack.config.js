@@ -1,8 +1,9 @@
 const path = require('path');
 const webpack = require('webpack');
+const projectConfig = require('./src/config');
 
 module.exports = {
-    entry: './src/index.jsx',
+    entry: './src/app.js',
     mode: 'development',
     module: {
         rules: [
@@ -28,7 +29,16 @@ module.exports = {
         contentBase: path.join(__dirname, 'public/'),
         port: 3000,
         publicPath: 'http://localhost:3000/dist/',
-        hotOnly: true
+        hotOnly: true,
+        historyApiFallback: true
     },
-    plugins: [new webpack.HotModuleReplacementPlugin()]
+    plugins: [
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: JSON.stringify(process.env.NODE_ENV)
+            },
+            __CONFIG__: JSON.stringify(projectConfig)
+        }),
+        new webpack.HotModuleReplacementPlugin()
+    ]
 };
