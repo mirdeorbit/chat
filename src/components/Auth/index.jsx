@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch, useRouteMatch, withRouter } from 'react-router-dom';
 import Signin from '../../containers/Auth/Signin';
+import Signup from '../../containers/Auth/Signup';
 
 import NotFound from '../../components/NotFound';
 
@@ -10,6 +11,7 @@ const AuthContainer = () => {
 	return (
 		<Switch>
 			<Route exact path={`${path}/signin`} component={Signin} />
+			<Route exact path={`${path}/signup`} component={Signup} />
 			<Route component={NotFound} />
 		</Switch>
 	)
