@@ -1,43 +1,57 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import PropTypes from 'prop-types';
 
 import {
-    checkAuth,
-    makeSelectAuth,
-    makeAuthLoading,
-    makeAuthError
+	checkAuth,
+	makeSelectAuth,
+	makeAuthLoading,
+	makeAuthError
 } from '../ducks/auth';
 
 function Auth(WrappedComponent) {
-    class AuthContainer extends Component {
-        componentDidMount() {
-            this.props.checkAuth();
-        }
+	class AuthContainer extends Component {
+		static propTypes = {
+			checkAuth: PropTypes.func.isRequired,
+			auth: PropTypes.object
+		};
 
-        render() {
-            return (
-                <WrappedComponent/>
-            )
-        }
-    }
+		static defaultProps = {
+			auth: null
+		};
 
-    const mapStateToProps = createStructuredSelector({
-        auth: makeSelectAuth(),
-        isLoading: makeAuthLoading(),
-        error: makeAuthError()
-    });
+		componentDidMount() {
+			this.props.checkAuth();
+		}
 
-    const mapDispatchToProps = {
-        checkAuth
-    };
+		render() {
+			const { auth } = this.props;
 
-    const withConnect = connect(
-        mapStateToProps,
-        mapDispatchToProps
-    );
+			return auth ? (
+				<WrappedComponent/>
+			) : (
+				<h1>Not authorized</h1>
+			)
+		}
+	}
 
-    return withConnect(AuthContainer);
+	const mapStateToProps = createStructuredSelector({
+		auth: makeSelectAuth(),
+		isLoading: makeAuthLoading(),
+		error: makeAuthError()
+	});
+
+	const mapDispatchToProps = {
+		checkAuth
+	};
+
+	const withConnect = connect(
+		mapStateToProps,
+		mapDispatchToProps
+	);
+
+	return withConnect(AuthContainer);
 }
 
 export default Auth;

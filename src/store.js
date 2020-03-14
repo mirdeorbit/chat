@@ -12,27 +12,27 @@ export const history = createBrowserHistory();
 const initialState = {};
 const enhancers = [];
 const middleware = [
-    sagaMiddleware,
-    routerMiddleware(history)
+	sagaMiddleware,
+	routerMiddleware(history)
 ];
 
 if (process.env.NODE_ENV === 'development') {
-    const devToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION__;
+	const devToolsExtension = window.__REDUX_DEVTOOLS_EXTENSION__;
 
-    if (typeof devToolsExtension === 'function') {
-        enhancers.push(devToolsExtension());
-    }
+	if (typeof devToolsExtension === 'function') {
+		enhancers.push(devToolsExtension());
+	}
 }
 
 const composedEnhancers = compose(
-    applyMiddleware(...middleware),
-    ...enhancers
+	applyMiddleware(...middleware),
+	...enhancers
 );
 
 const store = createStore(
-    connectRouter(history)(createReducers(history)),
-    initialState,
-    composedEnhancers
+	connectRouter(history)(createReducers(history)),
+	initialState,
+	composedEnhancers
 );
 
 sagaMiddleware.run(rootSaga);
