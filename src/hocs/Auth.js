@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import PropTypes from 'prop-types';
 
+import NotAuthorized from '../components/NotAuthorized';
+
 import {
 	checkAuth,
 	makeSelectAuth,
 	makeAuthLoading,
 	makeAuthError
-} from '../ducks/auth';
+} from '../ducks/auth/check';
 
 function Auth(WrappedComponent) {
 	class AuthContainer extends Component {
@@ -31,7 +33,7 @@ function Auth(WrappedComponent) {
 			return auth ? (
 				<WrappedComponent/>
 			) : (
-				<h1>Not authorized</h1>
+				<NotAuthorized/>
 			)
 		}
 	}

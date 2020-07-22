@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 
 import AuthHoc from '../../hocs/Auth';
 
+import ApplicationComponent from '../../components/App';
+
 class ApplicationContainer extends Component {
     render() {
         return (

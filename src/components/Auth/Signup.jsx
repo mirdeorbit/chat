@@ -1,11 +1,15 @@
 import React from 'react';
 import { Row, Form, Button, Col } from 'react-bootstrap';
 import { Formik } from 'formik';
-import { string, object } from 'yup';
+import { string, object, ref } from 'yup';
 
 const Signup = ({ onSubmit }) => {
 	const schema = object({
-		email: string().email().required()
+		email: string().email().required('Email is required'),
+		password: string().min(6).required('Password is required'),
+		passwordRepeat: string()
+			.oneOf([ref('password'), null], 'Password don\'t match')
+			.required('Password confirm is required')
 	});
 
 	return (
@@ -14,7 +18,10 @@ const Signup = ({ onSubmit }) => {
 				<Formik
 					initialValues={{}}
 					validationSchema={schema}
-					onSubmit={onSubmit}
+					onSubmit={(values, actions) => {
+						onSubmit(values);
+						actions.setSubmitting(false);
+					}}
 				>{({
 					   handleSubmit,
 					   handleChange,
@@ -32,10 +39,15 @@ const Signup = ({ onSubmit }) => {
 								value={values.email || ''}
 								onChange={handleChange}
 								isValid={touched.email && !errors.email}
+								isInvalid={!!errors.email}
 							/>
 							<Form.Text className='text-muted'>
 								We'll never share your email with anyone else.
 							</Form.Text>
+
+							<Form.Control.Feedback type="invalid">
+								{errors.email}
+							</Form.Control.Feedback>
 						</Form.Group>
 
 						<Form.Group controlId='password'>
@@ -47,7 +59,11 @@ const Signup = ({ onSubmit }) => {
 								value={values.password || ''}
 								onChange={handleChange}
 								isValid={touched.password && !errors.password}
+								isInvalid={!!errors.password}
 							/>
+							<Form.Control.Feedback type="invalid">
+								{errors.password}
+							</Form.Control.Feedback>
 						</Form.Group>
 
 						<Form.Group controlId='passwordRepeat'>
@@ -59,7 +75,12 @@ const Signup = ({ onSubmit }) => {
 								value={values.passwordRepeat || ''}
 								onChange={handleChange}
 								isValid={touched.passwordRepeat && !errors.passwordRepeat}
+								isInvalid={!!errors.passwordRepeat}
 							/>
+
+							<Form.Control.Feedback type="invalid">
+								{errors.passwordRepeat}
+							</Form.Control.Feedback>
 						</Form.Group>
 
 						<Button

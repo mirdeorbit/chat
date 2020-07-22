@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect/lib/index';
 import { takeEvery, put, call } from 'redux-saga/effects';
-import apiRequest from '../utils/apiRequest';
+import apiRequest from '../../utils/apiRequest';
 
 export const moduleName = 'signin';
 const prefix = `${__CONFIG__.appName}/${moduleName}`;

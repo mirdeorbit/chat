@@ -5,11 +5,11 @@ import { connect } from 'react-redux';
 import SignupComponent from '../../components/Auth/Signup';
 
 import {
-	signin,
+	signup,
 	makeSelectError,
 	makeSelectLoading,
 	makeSelectUser
-} from '../../ducks/signin';
+} from '../../ducks/auth/signup';
 
 class SignupContainer extends Component {
 
@@ -20,7 +20,7 @@ class SignupContainer extends Component {
 	}
 
 	onSubmit(data) {
-		this.props.signin(data);
+		this.props.signup(data);
 	}
 
 	render() {
@@ -39,7 +39,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = {
-	signin
+	signup
 };
 
 const withConnect = connect(

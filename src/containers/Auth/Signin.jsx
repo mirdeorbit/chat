@@ -9,7 +9,7 @@ import {
 	makeSelectError,
 	makeSelectLoading,
 	makeSelectUser
-} from '../../ducks/signin';
+} from '../../ducks/auth/signin';
 
 class SigninContainer extends Component {
 

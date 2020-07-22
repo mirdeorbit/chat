@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from "reselect";
+import { createStructuredSelector } from 'reselect';
 
-import { makeSelectAuth } from '../ducks/auth';
+import { makeSelectAuth } from '../ducks/auth/check';
 import LayoutComponent from '../components/Layout';
 
 
