@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import App from './containers/App';
+import Chat from './containers/Chat';
 import Auth from './components/Auth';
 import NotFound from './components/NotFound';
 
@@ -22,7 +22,7 @@ const render = () => {
 				<Layout>
 					<Switch>
 						<Route path='/auth' component={Auth} />
-						<Route path='/' component={App} />
+						<Route path='/' component={Chat} />
 						<Route component={NotFound} />
 					</Switch>
 				</Layout>
@@ -33,7 +33,7 @@ const render = () => {
 };
 
 
-module.hot.accept(['./containers/App'], () => {
+module.hot.accept(['./containers/Chat'], () => {
 	ReactDOM.unmountComponentAtNode(MOUNT_NODE);
 	render();
 });

@@ -10,8 +10,15 @@ export const CHECK_AUTH_START = `${prefix}/CHECK_AUTH_START`;
 export const CHECK_AUTH_SUCCESS = `${prefix}/CHECK_AUTH_SUCCESS`;
 export const CHECK_AUTH_FAILED = `${prefix}/CHECK_AUTH_FAILED`;
 
+export const SET_AUTH = `${prefix}/SET_AUTH`;
+
 export const checkAuth = () => ({
 	type: CHECK_AUTH
+});
+
+export const setAuth = (payload) => ({
+	type: SET_AUTH,
+	payload
 });
 
 export function reducer(state = {}, action) {
@@ -19,11 +26,13 @@ export function reducer(state = {}, action) {
 
 	switch(type) {
 		case CHECK_AUTH_START:
-			return { loading: true, error: '', ...state };
+			return { ...state, loading: true, error: '' };
 		case CHECK_AUTH_SUCCESS:
-			return { loading: false, auth: payload.auth, ...state };
+			return { ...state, loading: false, auth: payload.auth };
 		case CHECK_AUTH_FAILED:
-			return {loading: false, auth: null, error: payload.error, ...state};
+			return { ...state, loading: false, auth: null, error: payload.error };
+		case SET_AUTH:
+			return { ...state, auth: payload }
 		default:
 			return state;
 	}
@@ -68,6 +77,15 @@ export function* checkAuthSaga() {
 				});
 
 				redirectToAuth();
+			} else {
+				yield put({
+					type: CHECK_AUTH_SUCCESS,
+					payload: {
+						auth: {
+							user: data
+						}
+					}
+				});
 			}
 		} catch(err) {
 			yield put({

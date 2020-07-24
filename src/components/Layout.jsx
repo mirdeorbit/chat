@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const Layout = (props) => {
 	return (
-		<Container fluid>
+		<Container>
 			<Row>
 				<Col md={{ span: 4, offset: 10 }}>
 					{!props.auth && (
@@ -21,7 +21,7 @@ const Layout = (props) => {
 					{props.auth && (
 						<Nav>
 							<Nav.Item>
-								<Nav.Link href='/profile'>{props.auth.fullName}</Nav.Link>
+								<Nav.Link href='/profile'>{props.auth.user.email}</Nav.Link>
 							</Nav.Item>
 						</Nav>
 					)}

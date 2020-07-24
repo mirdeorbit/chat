@@ -20,11 +20,11 @@ export function reducer(state = {}, action) {
 
 	switch(type) {
 		case SIGNIN_START:
-			return { loading: true, error: '', ...state };
+			return { ...state, loading: true, error: '' };
 		case SIGNIN_SUCCESS:
-			return { loading: false, auth: payload.user, ...state };
+			return { ...state, loading: false, auth: payload.user };
 		case SIGNIN_FAILED:
-			return {loading: false, auth: null, error: payload.error, ...state};
+			return { ...state, loading: false, auth: null, error: payload.error };
 		default:
 			return state;
 	}
